@@ -68,7 +68,7 @@ foldLeft f b (h :. t) =
 --
 -- prop> \x -> x `headOr` Nil == x
 headOr :: a -> List a -> a
-headOr = error "todo: Course.List#headOr"
+headOr = foldRight const
 
 -- | The product of the elements of a list.
 --
@@ -81,7 +81,7 @@ headOr = error "todo: Course.List#headOr"
 -- >>> product (1 :. 2 :. 3 :. 4 :. Nil)
 -- 24
 product :: List Int -> Int
-product = error "todo: Course.List#product"
+product = foldLeft (*) 1
 
 -- | Sum the elements of the list.
 --
@@ -93,7 +93,7 @@ product = error "todo: Course.List#product"
 --
 -- prop> \x -> foldLeft (-) (sum x) x == 0
 sum :: List Int -> Int
-sum = error "todo: Course.List#sum"
+sum = foldLeft (+) 0
 
 -- | Return the length of the list.
 --
@@ -102,7 +102,7 @@ sum = error "todo: Course.List#sum"
 --
 -- prop> \x -> sum (map (const 1) x) == length x
 length :: List a -> Int
-length = error "todo: Course.List#length"
+length = foldLeft (const . succ) 0
 
 -- | Map the given function on each element of the list.
 --
